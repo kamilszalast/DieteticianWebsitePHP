@@ -8,6 +8,10 @@ body {
     overflow-x: hidden;
 }
 
+
+#login_button {
+    padding-top: 6px;
+}
 .navbar-brand {
     line-height: 100%;
     font-weight: bold;

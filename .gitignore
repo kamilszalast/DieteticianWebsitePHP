@@ -1,2 +1,3 @@
 #images
 *.img
+/nbproject/private/
