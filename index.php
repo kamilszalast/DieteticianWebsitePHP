@@ -7,4 +7,7 @@ require_once 'core/init.php';
  * and open the template in the editor.
  */
 
-echo Config::get('mysql/host');
+$user = Database::getInstance()->insert('users', array(
+    'name' => 'Dave',
+    'surname' => 'Wolinski'
+        ));
