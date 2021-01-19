@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include_once 'core/init.php';
 
 //uruchomi się dopiero po przesłaniu formularza
@@ -28,8 +29,8 @@ if (Input::exists()) {
     <body>
         <nav class="navbar navbar-dark navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="index.php"><img src="img/logo.jpg" width="30" height="30" alt="logo"
-                                                              class="d-inline-block mr-1 align-middle">
+                <a class="navbar-brand" href="html_static/index.html"><img src="img/logo.jpg" width="30" height="30" alt="logo"
+                                                                           class="d-inline-block mr-1 align-middle">
                     Dietetycy ZB</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +79,7 @@ if (Input::exists()) {
                                 <input type="submit" name="submit_login" value="Zaloguj się" class="btn btn-primary btn-block"></input>
                             </div>
                             <div class="clearfix">
-                                <label class="pull-left checkbox-inline"><input type="checkbox"> Zapamiętaj mnie</label>
+                                <label class="pull-left checkbox-inline"><input type="checkbox" name="remember"> Zapamiętaj mnie</label>
                                 <a href="#" class="pull-right">Zapomniałeś hasła?</a>
                             </div>
                             <button type = "button" class = "btn btn-warning btn-block mb-3" data-toggle = "modal" data-target = "#exampleModalCenter">
@@ -118,9 +119,13 @@ if (Input::exists()) {
                         if (isset($_POST['submit_login'])) {
                             if ($loginValidator->isLoginFormValid()) {
                                 $user = new User();
-                                $login = $user->login(Input::get('username'), Input::get('passwd'));
+
+                                $remember = (Input::get('remember') === 'on') ? true : false;
+                                $login = $user->login(Input::get('username'), Input::get('passwd'), $remember);
                                 if ($login) {
-                                    echo 'Zalogowano Cie';
+                                    //czyszczenie bufora
+                                    ob_clean();
+                                    Redirect::to('user_panel.php');
                                 } else {
                                     echo "<h5 style='color:red;'>Niepoprawne dane logowania</h5>";
                                 }
@@ -169,7 +174,6 @@ if (Input::exists()) {
                                     <input type="password" id="password2" name="password2" class="form-control" placeholder="Powtórz hasło" required="required">
                                 </div>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
-                                <!--<input type="hidden" name ="token" value="<php echo Token::generate(); ?>">-->
                                 <input type="submit" name="submit_registration" value="Zarejestruj" class="btn btn-primary"></input>
 
                             </form>

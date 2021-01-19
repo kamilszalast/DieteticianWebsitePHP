@@ -37,3 +37,15 @@ require_once 'classes/Token.php';
 require_once 'classes/User.php';
 require_once 'classes/Validation.php';
 require_once 'functions/sanitize.php';
+
+//sprawdzamy, czy istnieje ciasteczko (czyli czy w tablicy $_COOKIE istnieje vawrtośc przy kluczu 'hash'
+//oraz czy sesja nie istnieje (czyli czy w tablicy $_SESSION istnieje wartośc przy kluczu 'user'
+if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
+    $hash = Cookie::get(Config::get('remember/cookie_name'));
+    $hashCheck = Database::getInstance()->get('logged_in_users', array('hash', '=', $hash));
+
+    if ($hashCheck->getCount()) {
+        $user = new User($hashCheck->getFirstResult()->user_id);
+        $user->login();
+    }
+}

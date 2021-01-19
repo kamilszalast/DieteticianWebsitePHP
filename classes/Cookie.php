@@ -12,5 +12,25 @@
  * @author kamil
  */
 class Cookie {
-    //put your code here
+
+    public static function exists($name) {
+        return (isset($_COOKIE[$name])) ? true : false;
+    }
+
+    public static function get($name) {
+        return $_COOKIE[$name];
+    }
+
+    public static function put($name, $value, $expiryTime) {
+        if (setcookie($name, $value, time() + $expiryTime, '/')) {
+            return true;
+        }
+        return false;
+    }
+
+//tutaj ustawiamy ciasteczko na pusty łańcuch znaków, czas wygaśnięcia dajemy time()-1 aby był to czas przeszły
+    public static function delete($name) {
+        self::put($name, '', time() - 1);
+    }
+
 }

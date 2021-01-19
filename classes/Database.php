@@ -93,8 +93,14 @@ class Database {
     }
 
     //funkcja wykorzystujaca funkcje action do usuwania rekordów
-    public function delete($table, $conditions) {
-        return $this->action('DELETE', $table, $conditions);
+    //tutaj nie usuwa nam z tabeli logged_in_users
+    public function delete($table, $conditions = array()) {
+        //tutaj wstawiamy znaki zapytania aby potem w funkcji execute uzupełnić je tabelą conditions
+        echo $sql = "DELETE FROM {$table} WHERE " . '? ' . '? ' . '?';
+        if ($this->_pdo->prepare($sql)->execute($conditions)) {
+            return true;
+        }
+        return false;
     }
 
     //funkcja wstawiająca wiersz do bazy danych
