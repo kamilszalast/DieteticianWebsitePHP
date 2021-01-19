@@ -21,7 +21,8 @@ $GLOBALS['config'] = array(
         'cookie_expiry' => 604800 //tutaj tydzień wyrazony w sekundach
     ),
     'session' => array(
-        'session_name' => 'user'
+        'session_name' => 'user',
+        'token_name' => 'token'
     ),
 );
 // dołączanie klas do wszystkich plików znajdujących się bezpośrednio w projekcie

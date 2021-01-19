@@ -7,7 +7,7 @@ require_once 'core/init.php';
  * and open the template in the editor.
  */
 
-$user = Database::getInstance()->insert('users', array(
-    'name' => 'Dave',
-    'surname' => 'Wolinski'
-        ));
+$user = new User();
+if ($user->isLoggedIn()) {
+    echo 'Logged in';
+}

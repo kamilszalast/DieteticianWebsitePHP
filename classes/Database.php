@@ -99,25 +99,44 @@ class Database {
 
     //funkcja wstawiająca wiersz do bazy danych
     public function insert($table, $fields = array()) {
-        if (count($fields)) {
-            $keys = array_keys($fields);
-            $values = array_values($fields);
-            $questionMarks = '';
-            $i = 1;
-
-            foreach ($fields as $field) {
-                $questionMarks .= '?';
-                if ($i < count($fields)) {
-                    $questionMarks .= ', ';
-                }
-                $i++;
+        $keys = array_keys($fields);
+        $values = array_values($fields);
+        $questionMarks = '';
+        $i = 1;
+        // utworzenie łańcucha znaków ze znakami zapytania i przecinkami
+        foreach ($fields as $field) {
+            $questionMarks .= '?';
+            if ($i < count($fields)) {
+                $questionMarks .= ', ';
             }
+            $i++;
+        }
 
-            $sql = "INSERT INTO `{$table}` (`" . implode("`, `", $keys) . "`) VALUES ({$questionMarks})";
-            echo $sql;
-            if ($this->_pdo->prepare($sql)->execute($values)) {
-                return true;
+        $sql = "INSERT INTO `{$table}` (`" . implode("`, `", $keys) . "`) VALUES ({$questionMarks})";
+        if ($this->_pdo->prepare($sql)->execute($values)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    //funkcja edytująca rekord o zadanym id, edytowane są pola zawarte w parametrze fields
+    public function update($table, $recordID, $fields = array()) {
+        $i = 1;
+        $setParams = '';
+        $values = array_values($fields);
+        foreach ($fields as $key => $value) {
+            $setParams .= ($key . ' = ' . '?');
+            if ($i < count($fields)) {
+                $setParams .= ', ';
             }
+            $i++;
+        }
+
+        $sql = "UPDATE {$table} SET {$setParams} WHERE id = {$recordID}";
+
+        if ($this->_pdo->prepare($sql)->execute($values)) {
+            return true;
         }
         return false;
     }
@@ -127,7 +146,7 @@ class Database {
         return $this->_count;
     }
 
-    //getter do wyników zapytania SQL
+    //getter do wyników w postaci tablicy obiektow zapytania SQL
     public function getResults() {
         return $this->_results;
     }
