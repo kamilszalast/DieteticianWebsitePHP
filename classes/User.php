@@ -103,9 +103,14 @@ class User {
 
 //to sie nie wykonuje dobrze, nie usuwa rekordu
     public function logout() {
-        $this->database->delete('logged_in_users', array('user_id', '=', $this->getData()->id));
+        $userID = $this->getData()->id;
+        $this->database->delete('logged_in_users', array('user_id', '=', $userID));
         Session::delete($this->sessionName);
         Cookie::delete($this->cookieName);
+    }
+
+    public function updateData($fields = array()) {
+        $this->database->update('users', $this->getData()->id, $fields);
     }
 
     public function getData() {

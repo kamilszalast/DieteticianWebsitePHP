@@ -159,10 +159,10 @@ if (Input::exists()) {
                                     <input type="number" id="age" name="age" class="form-control" placeholder="Wiek [lata]" required="required">
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" id="weight" name="weight" class="form-control" placeholder="Waga [kg] np. 75" required="required" >
+                                    <input type="number" step="0.01" id="weight" name="weight" class="form-control" placeholder="Waga [kg] np. 75" required="required" >
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" id="height" name="height"  class="form-control" placeholder="Wzrost [cm] np. 170" required="required">
+                                    <input type="number" step="0.01" id="height" name="height"  class="form-control" placeholder="Wzrost [cm] np. 170" required="required">
                                 </div>
                                 <div class="form-group">
                                     <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" required="required" >

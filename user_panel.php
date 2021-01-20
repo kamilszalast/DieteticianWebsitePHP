@@ -7,6 +7,7 @@ require_once 'core/init.php';
  */
 $user = new User();
 ?>
+<!--head-->
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="img/favicon.png" />
@@ -73,8 +74,14 @@ $user = new User();
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-md-6">
-                    <h5><a href="#">Witaj <?php echo $user->getData()->name ?></a></h5>
-
+                    <h5>Witaj <?php echo $user->getData()->name ?></h5>
+                    <h8>Wybierz jedną z opcji:</h5><br>
+                        <!--tutaj opcje do przeniesienia się do strony ze zmianą danych i do strony ze zmianą hasła-->
+                        <div class="btn-group-vertical">
+                            <a href="update.php" class="btn btn-info mb-3">Zmień dane</a>
+                            <a href="changepassword.php" class="btn btn-info mb-3">Zmień hasło</a>
+                            <a href="delete_account.php" class="btn btn-info mb-3">Usuń konto</a>
+                        </div>
                 </div>
             </div>
         </div>

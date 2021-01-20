@@ -92,12 +92,11 @@ class Database {
         return $this->action('SELECT *', $table, $conditions);
     }
 
-    //funkcja wykorzystujaca funkcje action do usuwania rekordów
-    //tutaj nie usuwa nam z tabeli logged_in_users
+    // rozwiązanie z bindowaniem znaków zapytania nie działało, nie znalazłem błędu,
+    //użyto więc funkcji exec aby obejść błąd
     public function delete($table, $conditions = array()) {
-        //tutaj wstawiamy znaki zapytania aby potem w funkcji execute uzupełnić je tabelą conditions
-        echo $sql = "DELETE FROM {$table} WHERE " . '? ' . '? ' . '?';
-        if ($this->_pdo->prepare($sql)->execute($conditions)) {
+        $sql = "DELETE FROM {$table} WHERE " . $conditions[0] . $conditions[1] . $conditions[2];
+        if ($this->_pdo->exec($sql)) {
             return true;
         }
         return false;
@@ -140,7 +139,6 @@ class Database {
         }
 
         $sql = "UPDATE {$table} SET {$setParams} WHERE id = {$recordID}";
-
         if ($this->_pdo->prepare($sql)->execute($values)) {
             return true;
         }
@@ -160,6 +158,11 @@ class Database {
     // getter do pierwszego wiersza wyników zapytania SQL
     public function getFirstResult() {
         return $this->getResults()[0];
+    }
+
+//to w celu znalezienie błędu
+    function get_pdo() {
+        return $this->_pdo;
     }
 
 }

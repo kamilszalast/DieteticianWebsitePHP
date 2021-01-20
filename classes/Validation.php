@@ -16,30 +16,41 @@ class Validation {
     private $passed = false,
             $errors = array(),
             $database = null;
+    private static $registrationFilters = array(
+        'name' => ['filter' => FILTER_VALIDATE_REGEXP,
+            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ-]{1}[a-ząęłńśćźżó-]{1,25}$/']],
+        'surname' => ['filter' => FILTER_VALIDATE_REGEXP,
+            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ-]{1}[a-ząęłńśćźżó-]{1,25}$/']],
+        'age' => ['filter' => FILTER_VALIDATE_INT,
+            'options' => array('min_range' => 12, 'max_range' => 110)],
+        'weight' => ['filter' => FILTER_VALIDATE_FLOAT,
+            'options' => array('min_range' => 12, 'max_range' => 300)],
+        'height' => ['filter' => FILTER_VALIDATE_FLOAT,
+            'options' => array('min_range' => 120, 'max_range' => 300)],
+        'password' => ['filter' => FILTER_VALIDATE_REGEXP,
+            'options' => ['regexp' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$/']],
+        // hasło minimum 3 znaków w tym jedna cyfra, bez polskich znaków
+        'email' => ['filter' => FILTER_VALIDATE_EMAIL]
+    );
+    private static $updateAccountFilters = array(
+        'name' => ['filter' => FILTER_VALIDATE_REGEXP,
+            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ-]{1}[a-ząęłńśćźżó-]{1,25}$/']],
+        'surname' => ['filter' => FILTER_VALIDATE_REGEXP,
+            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ-]{1}[a-ząęłńśćźżó-]{1,25}$/']],
+        'age' => ['filter' => FILTER_VALIDATE_INT,
+            'options' => array('min_range' => 12, 'max_range' => 110)],
+        'weight' => ['filter' => FILTER_VALIDATE_FLOAT,
+            'options' => array('min_range' => 12, 'max_range' => 300)],
+        'height' => ['filter' => FILTER_VALIDATE_FLOAT,
+            'options' => array('min_range' => 120, 'max_range' => 300)]
+    );
 
     function __construct() {
         $this->database = Database::getInstance();
     }
 
-    //put your code here
-    private function validateData() {
-
-        $args = array(
-            'name' => ['filter' => FILTER_VALIDATE_REGEXP,
-                'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ-]{1}[a-ząęłńśćźżó-]{1,25}$/']],
-            'surname' => ['filter' => FILTER_VALIDATE_REGEXP,
-                'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ-]{1}[a-ząęłńśćźżó-]{1,25}$/']],
-            'age' => ['filter' => FILTER_VALIDATE_INT,
-                'options' => array('min_range' => 12, 'max_range' => 110)],
-            'weight' => ['filter' => FILTER_VALIDATE_INT,
-                'options' => array('min_range' => 12, 'max_range' => 300)],
-            'height' => ['filter' => FILTER_VALIDATE_INT,
-                'options' => array('min_range' => 120, 'max_range' => 300)],
-            'password' => ['filter' => FILTER_VALIDATE_REGEXP,
-                'options' => ['regexp' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$/']],
-            // hasło minimum 3 znaków w tym jedna cyfra, bez polskich znaków
-            'email' => ['filter' => FILTER_VALIDATE_EMAIL]
-        );
+//put your code here
+    private function validateData($args) {
         $dane = filter_input_array(INPUT_POST, $args);
 
         foreach ($dane as $key => $value) {
@@ -54,7 +65,7 @@ class Validation {
     }
 
     private function checkIfEmailIsRegistered() {
-        //sprawdzamy czy uzytkownik o danym adresie email juz istnieje
+//sprawdzamy czy uzytkownik o danym adresie email juz istnieje
         $isEmailRegistered = $this->database->get(('users'), ['email', '=', "{$_POST['email']}"])->getCount();
         if ($isEmailRegistered > 0) {
             $this->errors[] = 'Użytkownik o podanym adresie e-mail już istnieje';
@@ -74,7 +85,13 @@ class Validation {
     }
 
     public function isRegisterFormValid() {
-        if ($this->validateData() && $this->checkIfEmailIsRegistered() && $this->checkIfPasswordsAreIdentical()) {
+        if ($this->validateData(self::$registrationFilters) && $this->checkIfEmailIsRegistered() && $this->checkIfPasswordsAreIdentical()) {
+            $this->passed = true;
+        }
+    }
+
+    public function isUpdateFormValid() {
+        if ($this->validateData(self::$updateAccountFilters)) {
             $this->passed = true;
         }
     }
