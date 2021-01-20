@@ -121,4 +121,8 @@ class User {
         return $this->isLoggedIn;
     }
 
+    public function isAdmin() {
+        return ($this->getData()->groupType === 1) ? true : false;
+    }
+
 }

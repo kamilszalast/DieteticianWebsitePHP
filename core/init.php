@@ -33,10 +33,11 @@ require_once 'classes/Hash.php';
 require_once 'classes/Input.php';
 require_once 'classes/Redirect.php';
 require_once 'classes/Session.php';
-require_once 'classes/Token.php';
 require_once 'classes/User.php';
 require_once 'classes/Validation.php';
 require_once 'functions/sanitize.php';
+require_once 'html/HTMLCodeInserter.php';
+
 
 //sprawdzamy, czy istnieje ciasteczko (czyli czy w tablicy $_COOKIE istnieje vawrtośc przy kluczu 'hash'
 //oraz czy sesja nie istnieje (czyli czy w tablicy $_SESSION istnieje wartośc przy kluczu 'user'

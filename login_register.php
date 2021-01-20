@@ -29,8 +29,8 @@ if (Input::exists()) {
     <body>
         <nav class="navbar navbar-dark navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="html_static/index.html"><img src="img/logo.jpg" width="30" height="30" alt="logo"
-                                                                           class="d-inline-block mr-1 align-middle">
+                <a class="navbar-brand" href="index.php"><img src="img/logo.jpg" width="30" height="30" alt="logo"
+                                                              class="d-inline-block mr-1 align-middle">
                     Dietetycy ZB</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,16 +39,16 @@ if (Input::exists()) {
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item ">
-                            <a class="nav-link" href="html_static/index.html">Strona domowa</a>
+                            <a class="nav-link" href="index.php">Strona domowa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="html_static/onas.html">O nas</a>
+                            <a class="nav-link" href="onas.php">O nas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="html_static/galeria.html">Galeria</a>
+                            <a class="nav-link" href="galeria.php">Galeria</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="html_static/kontakt.html">Kontakt</a>
+                            <a class="nav-link" href="kontakt.php">Kontakt</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" id="login_button" href="login_register.php">
@@ -80,7 +80,6 @@ if (Input::exists()) {
                             </div>
                             <div class="clearfix">
                                 <label class="pull-left checkbox-inline"><input type="checkbox" name="remember"> Zapamiętaj mnie</label>
-                                <a href="#" class="pull-right">Zapomniałeś hasła?</a>
                             </div>
                             <button type = "button" class = "btn btn-warning btn-block mb-3" data-toggle = "modal" data-target = "#exampleModalCenter">
                                 <p class = "text-dark m-0"> Utwórz konto</p>
@@ -188,7 +187,7 @@ if (Input::exists()) {
     <!-- Stopka powtarzalna na każdej stronie - tutaj dodane style aby stopka była przyklejona do dołu strony -->
     <footer class="mt-auto py-3" style="position: fixed; left: 0; bottom: 0; width: 100%">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Kamil Szalast Websites 2020</p>
+            <p class="m-0 text-center text-white">Copyright &copy; Kamil Szalast Websites 2021</p>
         </div>
     </footer>
     <!-- Poniżej skrypty bootstrapa z pakietu startowego -->

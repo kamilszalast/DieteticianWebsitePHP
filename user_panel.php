@@ -23,8 +23,8 @@ $user = new User();
     <!--navbar-->
     <nav class="navbar navbar-dark navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="html_static/index.html"><img src="img/logo.jpg" width="30" height="30" alt="logo"
-                                                                       class="d-inline-block mr-1 align-middle">
+            <a class="navbar-brand" href="index.php"><img src="img/logo.jpg" width="30" height="30" alt="logo"
+                                                          class="d-inline-block mr-1 align-middle">
                 Dietetycy ZB</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,36 +33,22 @@ $user = new User();
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item ">
-                        <a class="nav-link" href="html_static/index.html">Strona domowa</a>
+                        <a class="nav-link" href="index.php">Strona domowa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="html_static/onas.html">O nas</a>
+                        <a class="nav-link" href="onas.php">O nas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="html_static/galeria.html">Galeria</a>
+                        <a class="nav-link" href="galeria.php">Galeria</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="html_static/kontakt.html">Kontakt</a>
+                        <a class="nav-link" href="kontakt.php">Kontakt</a>
                     </li>
                     <?php
                     if ($user->isLoggedIn()) {
-                        echo'
-                        <li class = "nav-item active">
-                            <a class = "nav-link" id = "login_button" href = "logout.php">
-                                <button class = "btn btn-sm btn-success" type = "button">
-                                Wyloguj
-                            </button>
-                            </a>
-                        </li>';
+                        HTMLCodeInserter::printLogoutButton();
                     } else {
-                        echo'
-                        <li class="nav-item active">
-                            <a class="nav-link" id="login_button" href="login_register.php">
-                                <button class="btn btn-sm btn-success" type="button">
-                                    Logowanie/Rejestracja
-                                </button>
-                            </a>
-                        </li>';
+                        HTMLCodeInserter::printLoginRegisterButton();
                     }
                     ?>
 
@@ -87,14 +73,7 @@ $user = new User();
         </div>
         <?php
     } else {
-        echo'
-        <div class = "container">
-            <div class = "row justify-content-md-center">
-                <div class = "col-md-6">
-                    <a href="login_register.php"><h5 style = "color:red;">Zostałeś wylogowany lub sesja wygasła</h5></a>
-                </div>
-             </div>
-        </div>';
+        HTMLCodeInserter::printLogoutMessage();
     }
     ?>
     <!--Stopka powtarzalna na każdej stronie - tutaj dodane style aby stopka była przyklejona do dołu strony-->
@@ -104,7 +83,7 @@ $user = new User();
             width: 100%">
         <div class = "container">
             <p class = "m-0 text-center text-white">Copyright &copy;
-                Kamil Szalast Websites 2020</p>
+                Kamil Szalast Websites 2021</p>
         </div>
     </footer>
     <!--Poniżej skrypty bootstrapa z pakietu startowego-->

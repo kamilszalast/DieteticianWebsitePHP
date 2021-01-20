@@ -44,6 +44,10 @@ class Validation {
         'height' => ['filter' => FILTER_VALIDATE_FLOAT,
             'options' => array('min_range' => 120, 'max_range' => 300)]
     );
+    private static $updatePasswordFilters = array(
+        'password' => ['filter' => FILTER_VALIDATE_REGEXP,
+            'options' => ['regexp' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$/']]
+    );
 
     function __construct() {
         $this->database = Database::getInstance();
@@ -52,7 +56,6 @@ class Validation {
 //put your code here
     private function validateData($args) {
         $dane = filter_input_array(INPUT_POST, $args);
-
         foreach ($dane as $key => $value) {
             if ($value === false or $value === NULL) {
                 $this->errors[] = $key;
@@ -76,7 +79,8 @@ class Validation {
     }
 
     private function checkIfPasswordsAreIdentical() {
-        if ($_POST['password'] === $_POST['password2']) {
+        if (Input::get('password') === Input::get('password2')) {
+            $this->passed = true;
             return true;
         } else {
             $this->errors[] = 'Podałeś dwa różne hasła, spróbuj ponownie';
@@ -92,6 +96,12 @@ class Validation {
 
     public function isUpdateFormValid() {
         if ($this->validateData(self::$updateAccountFilters)) {
+            $this->passed = true;
+        }
+    }
+
+    public function isPasswordUpdateFormValid() {
+        if ($this->validateData(self::$updatePasswordFilters) && $this->checkIfPasswordsAreIdentical()) {
             $this->passed = true;
         }
     }
