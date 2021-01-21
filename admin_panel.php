@@ -6,24 +6,7 @@ require_once 'core/init.php';
  * and open the template in the editor.
  */
 $user = new User();
-if (!$user->isLoggedIn()) {
-    Redirect::to('login_register.php');
-}
-if (Input::exists()) {
-    $validator = new Validation();
-    $validator->isPasswordUpdateFormValid();
-    //jeżeli użytkownik prześle dane, najpierw walidujemy czy hasło jest zgodne z hasłem z bazy oraz czy nowe hasła sie zgadzają
-    $inputHashedPassword = Hash::make(Input::get('password_current'));
-
-    if ($inputHashedPassword === $user->getData()->password && $validator->getPassed()) {
-        $user->updateData(array(
-            'password' => Hash::make(Input::get('password'))
-        ));
-    } else {
-        //jeżeli źle podane hasło
-        echo 'Nie przeszła walidacja';
-    }
-}
+ob_start();
 ?>
 <!--head-->
 <head>
@@ -74,27 +57,25 @@ if (Input::exists()) {
             </div>
         </div>
     </nav>
-    <?php if ($user->isLoggedIn()) { ?>
+    <?php if ($user->isLoggedIn() && $user->isAdmin()) { ?>
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-md-6">
-                    <form action="changepassword.php" method="post">
-                        <div class="form-group">
-                            <label for="name">Aktualne hasło: </label>
-                            <input type="password" name="password_current" class="form-control"></input>
-                        </div>
-                        <div class="form-group">
-                            <label for="surname">Nowe hasło: </label>
-                            <input type="password" name="password" class="form-control"></input>
-                        </div>
-                        <div class="form-group">
-                            <label for="age">Powtórz nowe hasło: </label>
-                            <input type="password"  name="password2" class="form-control"></input>
-                        </div>
-
-                        <input type="submit" class="btn btn-danger" value="Zmień hasło"></input>
+                    <h5>Obecni pacjenci:</h5>
+                    <h8>Kliknij przycisk "usuń" aby usunąć pacjenta</h5><br>
+                        <!--tutaj wydruk rekordów z bazy danych-->
+                        <?php
+                        $database = Database::getInstance();
+                        HTMLCodeInserter::generateUsersTableFromDB($database);
+                        if (Input::exists()) {
+                            $userID = Input::get('userID');
+                            $database->delete('users', array('id', '=', $userID));
+                            $database->delete('logged_in_users', array('user_id', '=', $userID));
+                            ob_clean();
+                            Redirect::to('admin_panel.php');
+                        }
+                        ?>
                         <a href="user_panel.php" class="btn btn-primary">Wróć do strony głównej</a>
-                    </form>
                 </div>
             </div>
         </div>

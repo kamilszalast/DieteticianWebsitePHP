@@ -64,9 +64,15 @@ $user = new User();
                     <h8>Wybierz jedną z opcji:</h5><br>
                         <!--tutaj opcje do przeniesienia się do strony ze zmianą danych i do strony ze zmianą hasła-->
                         <div class="btn-group-vertical">
-                            <a href="update.php" class="btn btn-info mb-3">Zmień dane</a>
+                            <a href="update.php" class="btn btn-info mb-3 mt-3">Zmień dane</a>
                             <a href="changepassword.php" class="btn btn-info mb-3">Zmień hasło</a>
                             <a href="delete_account.php" class="btn btn-info mb-3">Usuń konto</a>
+                            <?php
+                            //jeżeli użytkownik ma uprawnienia administratora
+                            if ($user->isAdmin()) {
+                                HTMLCodeInserter::printAdminButton();
+                            }
+                            ?>
                         </div>
                 </div>
             </div>
@@ -76,6 +82,7 @@ $user = new User();
         HTMLCodeInserter::printLogoutMessage();
     }
     ?>
+    <div style="clear:both;"></div>
     <!--Stopka powtarzalna na każdej stronie - tutaj dodane style aby stopka była przyklejona do dołu strony-->
     <footer class = "mt-auto py-3" style = "position: fixed;
             left: 0;

@@ -113,6 +113,11 @@ class User {
         $this->database->update('users', $this->getData()->id, $fields);
     }
 
+    public function deleteAccount() {
+        $this->database->delete('users', array('id', '=', $this->getData()->id));
+        $this->database->delete('logged_in_users', array('user_id', '=', $this->getData()->id));
+    }
+
     public function getData() {
         return $this->data;
     }
@@ -122,7 +127,7 @@ class User {
     }
 
     public function isAdmin() {
-        return ($this->getData()->groupType === 1) ? true : false;
+        return ($this->getData()->groupType == 1) ? true : false;
     }
 
 }

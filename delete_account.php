@@ -9,10 +9,8 @@ $user = new User();
 
 if (Input::exists()) {
     if (isset($_POST['delete_account'])) {
-        $database = Database::getInstance();
-        //tutaj jeszcze trzeba usunąć rekord z tabeli logged_in_users
-        //jeżeli użytkownik kliknął zapamietaj mnie, czyli jeżeli hash w bazie zgadza się z hashem w ciasteczku
-        $database->delete('users', array('id', '=', $user->getData()->id));
+        $user->deleteAccount();
+        Redirect::to('login_register.php');
     }
 }
 ?>
@@ -69,14 +67,15 @@ if (Input::exists()) {
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-md-6">
-                    <h8>Czy na pewno chcesz usunąć konto?</h5><br>
-                        <!--tutaj opcje do przeniesienia się do strony ze zmianą danych i do strony ze zmianą hasła-->
-                        <div class="btn-group">
-                            <form action="delete_account.php" method="post">
-                                <input type="submit" name="delete_account" class="btn btn-danger mr-3">Tak, usuń konto</a>
-                                <a href="user_panel.php" class="btn btn-primary">Anuluj</a>
-                            </form>
-                        </div>
+                    <h5>Czy na pewno chcesz usunąć konto?</h5>
+                    <p class="mt-2">Po usunieciu konta zostaniesz przekierowany do strony logowania.</p>
+                    <!--tutaj opcje do przeniesienia się do strony ze zmianą danych i do strony ze zmianą hasła-->
+                    <div class="btn-group">
+                        <form action="delete_account.php" method="post">
+                            <input type="submit" name="delete_account" value="Tak, usuń konto" class="btn btn-danger mr-3"></a>
+                            <a href="user_panel.php" class="btn btn-primary">Anuluj</a>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

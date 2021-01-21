@@ -184,6 +184,7 @@ if (Input::exists()) {
         </div>
 
     </div>
+    <div style="clear:both;"></div>
     <!-- Stopka powtarzalna na każdej stronie - tutaj dodane style aby stopka była przyklejona do dołu strony -->
     <footer class="mt-auto py-3" style="position: fixed; left: 0; bottom: 0; width: 100%">
         <div class="container">
