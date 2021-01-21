@@ -98,22 +98,24 @@ class HTMLCodeInserter {
         self::printTableHead();
         //tutaj drukowanie poszczególnych rekordów pewnie w pętli
         foreach ($results as $key => $value) {
-            echo '<form method="post"><tr><td>' .
-            $value->surname .
-            '</td><td>' .
-            $value->name .
-            '</td><td>' .
-            $value->age .
-            '</td><td>' .
-            $value->weight .
-            '</td><td>' .
-            $value->height .
-            '</td><td>' .
-            $value->email .
-            '</td><td>' .
-            '<input type="hidden" name="userID" value="' . $value->id . '"></input>' .
-            '<input type="submit" class="btn btn-danger" value="Usuń"></input>' .
-            '</td></tr></form>';
+            if (!$value->groupType) {
+                echo '<form method="post"><tr><td>' .
+                $value->surname .
+                '</td><td>' .
+                $value->name .
+                '</td><td>' .
+                $value->age .
+                '</td><td>' .
+                $value->weight .
+                '</td><td>' .
+                $value->height .
+                '</td><td>' .
+                $value->email .
+                '</td><td>' .
+                '<input type="hidden" name="userID" value="' . $value->id . '"></input>' .
+                '<input type="submit" class="btn btn-danger" value="Usuń"></input>' .
+                '</td></tr></form>';
+            }
         }
         self::printTableEnd();
     }
