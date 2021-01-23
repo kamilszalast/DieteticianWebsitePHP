@@ -35,40 +35,7 @@ $user = new User();
         align-baseline/top/middle/bottom/text-bottom/text-top
         -->
         <!--Belka nawigacyjna taka sama na każdej stronie-->
-        <nav class = "navbar navbar-dark navbar-expand-lg">
-            <div class = "container">
-                <a class = "navbar-brand" href = "index.php"><img src = "img/logo.jpg" width = "30" height = "30" alt = "logo"
-                                                                  class = "d-inline-block mr-1 align-middle">
-                    Dietetycy ZB</a>
-                <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#navbarResponsive"
-                        aria-controls = "navbarResponsive" aria-expanded = "false" aria-label = "Toggle navigation">
-                    <span class = "navbar-toggler-icon"></span>
-                </button>
-                <div class = "collapse navbar-collapse" id = "navbarResponsive">
-                    <ul class = "navbar-nav ml-auto">
-                        <li class = "nav-item">
-                            <a class = "nav-link" href = "index.php">Strona domowa</a>
-                        </li>
-                        <li class = "nav-item">
-                            <a class = "nav-link" href = "onas.php">O nas</a>
-                        </li>
-                        <li class = "nav-item active">
-                            <a class = "nav-link" href = "galeria.php">Galeria</a>
-                        </li>
-                        <li class = "nav-item">
-                            <a class = "nav-link" href = "kontakt.php">Kontakt</a>
-                        </li>
-                        <?php
-                        if ($user->isLoggedIn()) {
-                            HTMLCodeInserter::printUserPanelButton();
-                        } else {
-                            HTMLCodeInserter::printLoginRegisterButton();
-                        }
-                        ?>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <?php HTMLCodeInserter::printNav($user); ?>
 
         <div class = "container">
             <div class = "row align-items-center">
@@ -138,12 +105,7 @@ $user = new User();
             </div>
         </div>
         <!--Stopka powtarzalna na każdej stronie-->
-        <footer class = "mt-3 py-3">
-            <div class = "container">
-                <p class = "m-0 text-center text-white">Copyright &copy;
-                    Kamil Szalast Websites 2021</p>
-            </div>
-        </footer>
+        <?php HTMLCodeinserter::printFooter(); ?>
         <!--Poniżej skrypty bootstrapa z pakietu startowego-->
         <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"
                 integrity = "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin = "anonymous">

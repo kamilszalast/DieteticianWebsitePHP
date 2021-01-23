@@ -61,6 +61,7 @@ class User {
 
     public function login($username = null, $passwd = null, $remember = false) {
         if (!$username && !$passwd && $this->exists()) {
+            //tutaj ustawiamy parametr sesji 'user' jako id usera z bazy danych
             Session::put($this->sessionName, $this->getData()->id);
         } else {
             $userByEmail = $this->find($username);
