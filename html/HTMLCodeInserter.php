@@ -254,7 +254,6 @@ class HTMLCodeInserter {
 
     public static function printFooter() {
         echo'
-        <div style="clear:both;"></div>
         <footer class="footer mt-3 py-3">
             <div class="container">
                 <p class="m-0 text-center text-white">Copyright &copy; Kamil Szalast Websites 2021</p>

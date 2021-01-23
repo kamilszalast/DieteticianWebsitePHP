@@ -43,13 +43,6 @@ footer,
     background-color: #000065;
 }
 
-.footer{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-}
-
 @media (max-width: 991px) {
     div {
         margin: 0.5em 0;
