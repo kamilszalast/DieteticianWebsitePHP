@@ -6,25 +6,10 @@ require_once 'core/init.php';
  * and open the template in the editor.
  */
 $user = new User();
+HTMLCodeInserter::printHead();
 if (!$user->isLoggedIn()) {
     Redirect::to('login_register.php');
 }
-if (Input::exists()) {
-    $validator = new Validation();
-    $validator->isPasswordUpdateFormValid();
-    //jeżeli użytkownik prześle dane, najpierw walidujemy czy hasło jest zgodne z hasłem z bazy oraz czy nowe hasła sie zgadzają
-    $inputHashedPassword = Hash::make(Input::get('password_current'));
-
-    if ($inputHashedPassword === $user->getData()->password && $validator->getPassed()) {
-        $user->updateData(array(
-            'password' => Hash::make(Input::get('password'))
-        ));
-    } else {
-        //jeżeli źle podane hasło
-        echo 'Nie przeszła walidacja';
-    }
-}
-HTMLCodeInserter::printHead();
 ?>
 
 <html lang="pl">
@@ -50,10 +35,28 @@ HTMLCodeInserter::printHead();
                                 <label for="age">Powtórz nowe hasło: </label>
                                 <input type="password"  name="password2" class="form-control"></input>
                             </div>
-
                             <input type="submit" class="btn btn-danger" value="Zmień hasło"></input>
                             <a href="user_panel.php" class="btn btn-primary">Wróć do strony głównej</a>
                         </form>
+                        <?php
+                        if (Input::exists()) {
+                            $validator = new Validation();
+                            $validator->isPasswordUpdateFormValid();
+                            //jeżeli użytkownik prześle dane, najpierw walidujemy czy hasło jest zgodne z hasłem z bazy oraz czy nowe hasła sie zgadzają
+                            $inputHashedPassword = Hash::make(Input::get('password_current'));
+                            $isInputPassCorrect = $inputHashedPassword === $user->getData()->password;
+                            if ($isInputPassCorrect && $validator->getPassed()) {
+                                $user->updateData(array(
+                                    'password' => Hash::make(Input::get('password'))
+                                ));
+                            } else {
+                                //jeżeli źle podane hasło
+                                $validator->translateErrors()->printErrors();
+                                if (!$isInputPassCorrect)
+                                    echo'Wpisane hasło nie gadza się z istniejącym w bazie';
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

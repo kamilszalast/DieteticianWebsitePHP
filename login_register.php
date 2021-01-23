@@ -46,10 +46,7 @@ HTMLCodeInserter::printHead();
                                 }
                             } else {
                                 echo "<h5 style='color:red;'>Niepoprawne dane rejestracji:</h5>";
-                                $errorArray = $validator->getErrors();
-                                foreach ($errorArray as $error) {
-                                    echo "{$error} <br>";
-                                }
+                                $validator->translateErrors()->printErrors();
                             }
                         }
 

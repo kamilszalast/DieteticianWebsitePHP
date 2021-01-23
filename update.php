@@ -9,24 +9,7 @@ $user = new User();
 if (!$user->isLoggedIn()) {
     Redirect::to('login_register.php');
 }
-if (Input::exists()) {
-    $validator = new Validation();
-    $validator->isUpdateFormValid();
 
-    if ($validator->getPassed()) {
-        $user->updateData(array(
-            'name' => Input::get('name'),
-            'surname' => Input::get('surname'),
-            'age' => Input::get('age'),
-            'weight' => Input::get('weight'),
-            'height' => Input::get('height')
-        ));
-        Redirect::to('update.php');
-    } else {
-        //co jeżeli wpiszemy niepoprawne dane
-        echo 'Nie przeszła walidacja';
-    }
-}
 HTMLCodeInserter::printHead();
 ?>
 
@@ -61,7 +44,26 @@ HTMLCodeInserter::printHead();
                             </div>
                             <input type="submit" class="btn btn-danger" value="Zmień dane"></input>
                             <a href="user_panel.php" class="btn btn-primary">Wróć do strony głównej</a>
-                        </form>
+                        </form><?php
+                        if (Input::exists()) {
+                            $validator = new Validation();
+                            $validator->isUpdateFormValid();
+
+                            if ($validator->getPassed()) {
+                                $user->updateData(array(
+                                    'name' => Input::get('name'),
+                                    'surname' => Input::get('surname'),
+                                    'age' => Input::get('age'),
+                                    'weight' => Input::get('weight'),
+                                    'height' => Input::get('height')
+                                ));
+                                Redirect::to('update.php');
+                            } else {
+                                //co jeżeli wpiszemy niepoprawne dane
+                                $validator->translateErrors()->printErrors();
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -69,7 +71,7 @@ HTMLCodeInserter::printHead();
         } else {
             HTMLCodeInserter::printLogoutMessage();
         }
-        HTMLCodeInserter::printFooterFixed();
+        HTMLCodeInserter::printFooter();
         ?>
         <!--Poniżej skrypty bootstrapa z pakietu startowego-->
         <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"

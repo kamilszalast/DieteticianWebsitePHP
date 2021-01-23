@@ -15,6 +15,7 @@ class Validation {
 
     private $passed = false,
             $errors = array(),
+            $translatedErrors = array(),
             $database = null;
     private static $registrationFilters = array(
         'name' => ['filter' => FILTER_VALIDATE_REGEXP,
@@ -28,8 +29,8 @@ class Validation {
         'height' => ['filter' => FILTER_VALIDATE_FLOAT,
             'options' => array('min_range' => 120, 'max_range' => 300)],
         'password' => ['filter' => FILTER_VALIDATE_REGEXP,
-            'options' => ['regexp' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$/']],
-        // hasło minimum 3 znaków w tym jedna cyfra, bez polskich znaków
+            'options' => ['regexp' => '/^.{3,}$/']],
+        // hasło minimum 3 znaki dowolne
         'email' => ['filter' => FILTER_VALIDATE_EMAIL]
     );
     private static $updateAccountFilters = array(
@@ -46,7 +47,7 @@ class Validation {
     );
     private static $updatePasswordFilters = array(
         'password' => ['filter' => FILTER_VALIDATE_REGEXP,
-            'options' => ['regexp' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$/']]
+            'options' => ['regexp' => '/^.{3,}$/']]
     );
 
     function __construct() {
@@ -114,8 +115,39 @@ class Validation {
         return $this->passed;
     }
 
+    public function translateErrors() {
+        foreach ($this->errors as &$error) {
+            switch ($error) {
+                case 'name':$error = 'Błędne imie (powinno zaczynać się z dużej liitery)';
+                    break;
+                case 'surname':$error = 'Błędne nazwisko (powinno zaczynać się z dużej liitery)';
+                    break;
+                case 'age':$error = 'Błędny wiek (zakres między 12 a 110)';
+                    break;
+                case 'weight':$error = 'Błędna waga (zakres między 12 kg a 300 kg)';
+                    break;
+                case 'height':$error = 'Błędny wzrost (zakres między 120 cm a 300 cm)';
+                    break;
+                case 'password':$error = 'Błędne hasło (powinno zawierać minimum 3 znaki)';
+                    break;
+                case 'email':$error = 'Błędny email (przykład: kamil12345678@gmail.com)';
+                    break;
+                default:
+                    break;
+            }
+        }
+        return $this;
+    }
+
     function getErrors() {
         return $this->errors;
+    }
+
+    public function printErrors() {
+        echo '<h5 class="mt-3" style="color:red;">Niepoprawne dane: </h5>';
+        foreach ($this->errors as $error) {
+            echo $error . '<br>';
+        }
     }
 
 }
