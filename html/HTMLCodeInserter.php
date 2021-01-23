@@ -58,15 +58,17 @@ class HTMLCodeInserter {
                             <a class="nav-link" href="kontakt.php">Kontakt</a>
                         </li>
         ';
-        //pierwsza opcja dla stron statycznych bez zalogowanego usera
-        if (!$user->isLoggedIn() && $isUserPanel === false) {
-            $userButton = self::getLoginRegisterButton();
-        } elseif ($user->isLoggedIn() && $isUserPanel === false) {
-            $userButton = self::getUserPanelButton();
-        } else {
-            $userButton = self::getLogoutButton();
-        }
 
+
+        if ($user->isLoggedIn()) {
+            if ($isUserPanel === false) {
+                $userButton = self::getUserPanelButton();
+            } else {
+                $userButton = self::getLogoutButton();
+            }
+        } else {
+            $userButton = self::getLoginRegisterButton();
+        }
         $endNav = '
                     </ul>
                 </div>
@@ -253,6 +255,16 @@ class HTMLCodeInserter {
     }
 
     public static function printFooter() {
+        echo'
+        <footer class="mt-3 py-3">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Kamil Szalast Websites 2021</p>
+            </div>
+        </footer>
+        ';
+    }
+
+    public static function printStickyFooter() {
         echo'
         <footer class="footer mt-3 py-3">
             <div class="container">

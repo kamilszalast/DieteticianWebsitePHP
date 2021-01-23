@@ -20,6 +20,13 @@ body {
     font-weight: bold;
 }
 
+.footer{
+    position: absolute;
+    left:0;
+    bottom: 0;
+    width: 100%;
+}
+
 .navbar-toggler:focus,
 .navbar-toggler:active,
 .navbar-toggler-icon:focus {

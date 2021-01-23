@@ -7,9 +7,6 @@ require_once 'core/init.php';
  */
 $user = new User();
 HTMLCodeInserter::printHead();
-if (!$user->isLoggedIn()) {
-    Redirect::to('login_register.php');
-}
 ?>
 
 <html lang="pl">
@@ -64,7 +61,7 @@ if (!$user->isLoggedIn()) {
         } else {
             HTMLCodeInserter::printLogoutMessage();
         }
-        HTMLCodeInserter::printFooter();
+        HTMLCodeInserter::printStickyFooter();
         ?>
 
         <!--Poniżej skrypty bootstrapa z pakietu startowego-->

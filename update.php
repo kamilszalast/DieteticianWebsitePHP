@@ -7,17 +7,16 @@ ob_start();
  * and open the template in the editor.
  */
 $user = new User();
-if (!$user->isLoggedIn()) {
-    Redirect::to('login_register.php');
-}
 HTMLCodeInserter::printHead();
 ?>
 
 <html lang="pl">
     <body>
         <!--navbar-->
-        <?php HTMLCodeInserter::printNav($user, true); ?>
-        <?php if ($user->isLoggedIn()) { ?>
+        <?php
+        HTMLCodeInserter::printNav($user, true);
+        if ($user->isLoggedIn()) {
+            ?>
             <div class="container wrapper">
                 <div class="row justify-content-md-center">
                     <div class="col-md-6">
@@ -68,15 +67,13 @@ HTMLCodeInserter::printHead();
                 </div>
             </div>
             <?php
+            HTMLCodeInserter::printFooter();
         } else {
             HTMLCodeInserter::printLogoutMessage();
+            HTMLCodeInserter::printStickyFooter();
         }
         ?>
-        <footer class="mt-3 py-3">
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Kamil Szalast Websites 2021</p>
-            </div>
-        </footer>
+
         <!--Poniżej skrypty bootstrapa z pakietu startowego-->
         <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"
                 integrity = "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin = "anonymous">

@@ -13,8 +13,8 @@ HTMLCodeInserter::printHead();
     <body>
         <!--navbar-->
         <?php
+        HTMLCodeInserter::printNav($user, true);
         if ($user->isLoggedIn()) {
-            HTMLCodeInserter::printNav($user, true);
             ?>
             <div class="container">
                 <div class="row justify-content-md-center">
@@ -38,12 +38,10 @@ HTMLCodeInserter::printHead();
             </div>
             <?php
         } else {
-            HTMLCodeInserter::printNav($user);
             HTMLCodeInserter::printLogoutMessage();
         }
-        HTMLCodeInserter::printFooter();
+        HTMLCodeInserter::printStickyFooter();
         ?>
-
         <!--Poniżej skrypty bootstrapa z pakietu startowego-->
         <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"
                 integrity = "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin = "anonymous">

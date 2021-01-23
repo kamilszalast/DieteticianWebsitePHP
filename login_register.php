@@ -70,13 +70,11 @@ HTMLCodeInserter::printHead();
             </div>
             <!--tutaj ma pojawic sie div z formularzem rejestracji po kliknieciu przycisku utwórz konto-->
             <?php HTMLCodeInserter::printRegisterModal(); ?>
-
         </div>
-
-        <?php HTMLCodeinserter::printFooter(); ?>
-
-        <!-- Stopka powtarzalna na każdej stronie - tutaj dodane style aby stopka była przyklejona do dołu strony -->
-
+        <!-- Stopka -->
+        <?php
+        HTMLCodeInserter::printStickyFooter();
+        ?>
         <!-- Poniżej skrypty bootstrapa z pakietu startowego -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
                 integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

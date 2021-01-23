@@ -42,7 +42,7 @@ HTMLCodeInserter::printHead();
         } else {
             HTMLCodeInserter::printLogoutMessage();
         }
-        HTMLCodeInserter::printFooter();
+        HTMLCodeInserter::printStickyFooter();
         ?>
         <!--Poniżej skrypty bootstrapa z pakietu startowego-->
         <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"
