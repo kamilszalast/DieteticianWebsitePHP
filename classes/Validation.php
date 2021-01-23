@@ -15,13 +15,12 @@ class Validation {
 
     private $passed = false,
             $errors = array(),
-            $translatedErrors = array(),
             $database = null;
     private static $registrationFilters = array(
         'name' => ['filter' => FILTER_VALIDATE_REGEXP,
-            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ-]{1}[a-ząęłńśćźżó-]{1,25}$/']],
+            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ]{1}[a-ząęłńśćźżó-]{1,39}$/']],
         'surname' => ['filter' => FILTER_VALIDATE_REGEXP,
-            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ-]{1}[a-ząęłńśćźżó-]{1,25}$/']],
+            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ]{1}[a-ząęłńśćźżó-]{1,59}$/']],
         'age' => ['filter' => FILTER_VALIDATE_INT,
             'options' => array('min_range' => 12, 'max_range' => 110)],
         'weight' => ['filter' => FILTER_VALIDATE_FLOAT,
@@ -35,9 +34,9 @@ class Validation {
     );
     private static $updateAccountFilters = array(
         'name' => ['filter' => FILTER_VALIDATE_REGEXP,
-            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ-]{1}[a-ząęłńśćźżó-]{1,25}$/']],
+            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ]{1}[a-ząęłńśćźżó]{1,39}$/']],
         'surname' => ['filter' => FILTER_VALIDATE_REGEXP,
-            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ-]{1}[a-ząęłńśćźżó-]{1,25}$/']],
+            'options' => ['regexp' => '/^[A-ZĄĘŁŃŚĆŹŻÓ]{1}[a-ząęłńśćźżó]{1,59}$/']],
         'age' => ['filter' => FILTER_VALIDATE_INT,
             'options' => array('min_range' => 12, 'max_range' => 110)],
         'weight' => ['filter' => FILTER_VALIDATE_FLOAT,
@@ -108,7 +107,9 @@ class Validation {
     }
 
     public function isLoginFormValid() {
-        return (null !== (Input::get('username')) && null !== (Input::get('passwd')));
+        if (null !== (Input::get('username')) && null !== (Input::get('passwd'))) {
+            $this->passed = true;
+        };
     }
 
     function getPassed() {
@@ -118,9 +119,9 @@ class Validation {
     public function translateErrors() {
         foreach ($this->errors as &$error) {
             switch ($error) {
-                case 'name':$error = 'Błędne imie (powinno zaczynać się z dużej liitery)';
+                case 'name':$error = 'Błędne imie (powinno zaczynać się z dużej litery)';
                     break;
-                case 'surname':$error = 'Błędne nazwisko (powinno zaczynać się z dużej liitery)';
+                case 'surname':$error = 'Błędne nazwisko (powinno zaczynać się z dużej litery)';
                     break;
                 case 'age':$error = 'Błędny wiek (zakres między 12 a 110)';
                     break;

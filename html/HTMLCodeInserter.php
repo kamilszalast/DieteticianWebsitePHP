@@ -126,10 +126,10 @@ class HTMLCodeInserter {
                                     <input type="number" id="age" name="age" class="form-control" placeholder="Wiek [lata]" required="required">
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" step="0.01" id="weight" name="weight" class="form-control" placeholder="Waga [kg] np. 75" required="required" >
+                                    <input type="number" step="0.01" id="weight" name="weight" class="form-control" placeholder="Waga [kg] np. 75,50" required="required" >
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" step="0.01" id="height" name="height"  class="form-control" placeholder="Wzrost [cm] np. 170" required="required">
+                                    <input type="number" step="0.01" id="height" name="height"  class="form-control" placeholder="Wzrost [cm] np. 170,15" required="required">
                                 </div>
                                 <div class="form-group">
                                     <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" required="required" >
@@ -255,26 +255,9 @@ class HTMLCodeInserter {
     public static function printFooter() {
         echo'
         <div style="clear:both;"></div>
-        <footer class = "mt-3 py-3">
-            <div class = "container">
-                <p class = "m-0 text-center text-white">Copyright &copy;
-                    Kamil Szalast Websites 2021</p>
-            </div>
-        </footer>
-        ';
-    }
-
-    public static function printFooterFixed() {
-        echo'
-        <div style="clear:both;"></div>
-        <!--Stopka powtarzalna na każdej stronie - tutaj dodane style aby stopka była przyklejona do dołu strony-->
-        <footer class = "mt-auto py-3" style = "position: fixed;
-                left: 0;
-                bottom: 0;
-                width: 100%">
-            <div class = "container">
-                <p class = "m-0 text-center text-white">Copyright &copy;
-                    Kamil Szalast Websites 2021</p>
+        <footer class="footer mt-3 py-3">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Kamil Szalast Websites 2021</p>
             </div>
         </footer>
         ';

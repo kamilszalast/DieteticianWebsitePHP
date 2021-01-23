@@ -53,7 +53,7 @@ if (!$user->isLoggedIn()) {
                                 //jeżeli źle podane hasło
                                 $validator->translateErrors()->printErrors();
                                 if (!$isInputPassCorrect)
-                                    echo'Wpisane hasło nie gadza się z istniejącym w bazie';
+                                    echo'"Aktualne hasło" nie gadza się z istniejącym w bazie';
                             }
                         }
                         ?>
@@ -64,7 +64,7 @@ if (!$user->isLoggedIn()) {
         } else {
             HTMLCodeInserter::printLogoutMessage();
         }
-        HTMLCodeinserter::printFooterFixed();
+        HTMLCodeInserter::printFooter();
         ?>
 
         <!--Poniżej skrypty bootstrapa z pakietu startowego-->

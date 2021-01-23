@@ -1,5 +1,6 @@
 <?php
 require_once 'core/init.php';
+ob_start();
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,7 +10,6 @@ $user = new User();
 if (!$user->isLoggedIn()) {
     Redirect::to('login_register.php');
 }
-
 HTMLCodeInserter::printHead();
 ?>
 
@@ -18,7 +18,7 @@ HTMLCodeInserter::printHead();
         <!--navbar-->
         <?php HTMLCodeInserter::printNav($user, true); ?>
         <?php if ($user->isLoggedIn()) { ?>
-            <div class="container">
+            <div class="container wrapper">
                 <div class="row justify-content-md-center">
                     <div class="col-md-6">
                         <form action="update.php" method="post">
@@ -44,11 +44,11 @@ HTMLCodeInserter::printHead();
                             </div>
                             <input type="submit" class="btn btn-danger" value="Zmień dane"></input>
                             <a href="user_panel.php" class="btn btn-primary">Wróć do strony głównej</a>
-                        </form><?php
+                        </form>
+                        <?php
                         if (Input::exists()) {
                             $validator = new Validation();
                             $validator->isUpdateFormValid();
-
                             if ($validator->getPassed()) {
                                 $user->updateData(array(
                                     'name' => Input::get('name'),
@@ -71,8 +71,12 @@ HTMLCodeInserter::printHead();
         } else {
             HTMLCodeInserter::printLogoutMessage();
         }
-        HTMLCodeInserter::printFooter();
         ?>
+        <footer class="mt-3 py-3">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Kamil Szalast Websites 2021</p>
+            </div>
+        </footer>
         <!--Poniżej skrypty bootstrapa z pakietu startowego-->
         <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"
                 integrity = "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin = "anonymous">

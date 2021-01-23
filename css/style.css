@@ -8,6 +8,9 @@ body {
     overflow-x: hidden;
 }
 
+.wrapper{
+    min-height: 79.4%;
+}
 
 #login_button {
     padding-top: 6px;
@@ -38,6 +41,13 @@ div img:nth-child(1) {
 footer,
 .navbar {
     background-color: #000065;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
 @media (max-width: 991px) {

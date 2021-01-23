@@ -17,7 +17,7 @@ HTMLCodeInserter::printHead();
         HTMLCodeInserter::printNav($user, true);
         if ($user->isLoggedIn() && $user->isAdmin()) {
             ?>
-            <div class="container">
+            <div class="container wrapper">
                 <div class="row justify-content-md-center">
                     <div class="col-md-6">
                         <h5>Obecni pacjenci:</h5>
@@ -43,9 +43,11 @@ HTMLCodeInserter::printHead();
             HTMLCodeInserter::printLogoutMessage();
         }
         ?>
-        <div style="clear:both;"></div>
-        <!--Stopka powtarzalna na każdej stronie - tutaj dodane style aby stopka była przyklejona do dołu strony-->
-        <?php HTMLCodeinserter::printFooterFixed(); ?>
+        <footer class="mt-3 py-3">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Kamil Szalast Websites 2021</p>
+            </div>
+        </footer>
         <!--Poniżej skrypty bootstrapa z pakietu startowego-->
         <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"
                 integrity = "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin = "anonymous">

@@ -41,8 +41,7 @@ HTMLCodeInserter::printHead();
             HTMLCodeInserter::printNav($user);
             HTMLCodeInserter::printLogoutMessage();
         }
-
-        HTMLCodeInserter::printFooterFixed();
+        HTMLCodeInserter::printFooter();
         ?>
 
         <!--Poniżej skrypty bootstrapa z pakietu startowego-->
